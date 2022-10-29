@@ -8,6 +8,13 @@ namespace unit03_jumper
     /// </summary>
     public class Director
     {
+        private Puzzle _puzzle = new Puzzle();
+        private Jumper _jumper = new Jumper();
+        private TerminalService _terminalService = new TerminalService();
+        private bool _isPlaying = true;
+        private string guess = "";
+
+
         /// <summary>
         /// Constructs a new instance of Director.
         /// </summary>
@@ -33,8 +40,10 @@ namespace unit03_jumper
         /// </summary>
         private void GetInputs()
         {
-         
-            
+            _terminalService.WriteText(_puzzle.GetHint());
+            _terminalService.WriteText(_jumper.getChute());
+            guess =  _terminalService.ReadText("Guess a letter [a-z]: ");
+
         }
 
         /// <summary>
@@ -42,7 +51,7 @@ namespace unit03_jumper
         /// </summary>
         private void DoUpdates()
         {
-           
+            _puzzle.CheckGuess(guess);
         }
 
         /// <summary>
@@ -50,8 +59,8 @@ namespace unit03_jumper
         /// </summary>
         private void DoOutputs()
         {
-           
-            
+            // _isPlaying = false;
+
         }
     }
 }

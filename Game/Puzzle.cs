@@ -9,7 +9,11 @@ namespace unit03_jumper
     /// </summary>
     public class Puzzle
     {
-        private string hint = "apple";
+        private string _hint = "apple";
+        private List<string> _guesses = new List<string>();
+
+        private string _correct = "";
+        
 
         /// <summary>
         /// Constructs a new instance of a Puzzle. 
@@ -25,15 +29,30 @@ namespace unit03_jumper
         /// <returns>The amount of letters in the word the user needs to guess</returns>
         public string GetHint()
         {
-            
+            string puz = "_ _ _ _ _";
+            return puz;
         }
 
         /// <summary>
         /// Checks whether or not the guessed letter is the word.
         /// </summary>
-        public CheckGuess()
+        public void CheckGuess(string guess)
         {
-            
+            _guesses.Add(guess);
+            foreach (string letter in _guesses)
+            {
+                if (_hint.Contains(guess))
+                {
+                    char g = char.Parse(guess);
+                    _hint = _hint.Replace('_', g);
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+
         }
 
     }

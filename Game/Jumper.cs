@@ -1,20 +1,26 @@
 using System;
 
- 
+
 namespace unit03_jumper
 {
-
     /// <summary>
-    /// <para>The parachute and man.</para>
+    /// <para>The parachute</para>
     /// <para>
     /// The responsibility of a Jumper is to keep track of the
     /// parachute.
     /// </para>
     /// </summary>
-
     public class Jumper
     {
-        private string Chute;
+           
+        private string Chute =
+           @" ____" + "\n"
+        + @"/    \" + "\n"
+        + @"\____/" + "\n"
+        + @" \  /" + "\n"
+        + @"   0 " + "\n"
+        + @"  -|- " + "\n"
+        + @"  / \ " + "\n";
 
         /// <summary>
         /// Constructs a new instance of Jumper.
@@ -26,11 +32,20 @@ namespace unit03_jumper
         }
 
         /// <summary>
+        /// Deletes lines off the parachute.
+        /// </summary>
+        public void CutLine()
+        {
+
+        }
+
+        /// <summary>
         /// Creates the Parachute
         /// </summary>
         /// <returns>The an image of a parachute.</returns>
         public string getChute()
         {
+            return Chute;
 
         }
 
@@ -42,16 +57,9 @@ namespace unit03_jumper
         /// </returns>
         public bool IsDead()
         {
-
+            return true;
         }
+    } 
 
-        /// <summary>
-        /// Deletes lines off the parachute.
-        /// </summary>
-        public void CutLine()
-        {
-
-        }
-
-
-    }
+    
+}
