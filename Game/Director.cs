@@ -12,7 +12,12 @@ namespace unit03_jumper
         private Jumper _jumper = new Jumper();
         private TerminalService _terminalService = new TerminalService();
         private bool _isPlaying = true;
+        
         private string guess = "";
+
+        public int WrongGuessCount = 0;
+
+        public bool _firsTime = true;
 
 
         /// <summary>
@@ -39,19 +44,42 @@ namespace unit03_jumper
         /// Gets the guesses of a user.
         /// </summary>
         private void GetInputs()
-        {
-            _terminalService.WriteText(_puzzle.GetHint());
-            _terminalService.WriteText(_jumper.getChute());
-            guess =  _terminalService.ReadText("Guess a letter [a-z]: ");
+        {   
+            if (_isPlaying == false)
+            {
+                _puzzle.GetHint();
+                _terminalService.WriteText(_jumper.GetChute());
+
+            }
+            else if (_isPlaying == true)
+            {
+                _puzzle.GetHint();
+                _terminalService.WriteText(_jumper.GetChute());
+                guess =  _terminalService.ReadText("Guess a letter [a-z]: ");
+            }
 
         }
 
         /// <summary>
-        /// Keeps watch on where the seeker is moving.
+        /// Updates the Jumper to display the result of a user's correct or incorrect guess. 
         /// </summary>
         private void DoUpdates()
         {
-            _puzzle.CheckGuess(guess);
+            bool _checkComplete =_puzzle.CheckGuess(guess);
+
+            if(_checkComplete == false)
+            {
+                _jumper.WrongGuessCount += 1;
+            }
+            else
+            {
+                _jumper.WrongGuessCount += 0;
+            }
+
+            _jumper.CutLine(_jumper.WrongGuessCount);
+            _puzzle.UpdateHint(_checkComplete, guess);
+
+
         }
 
         /// <summary>
@@ -59,8 +87,16 @@ namespace unit03_jumper
         /// </summary>
         private void DoOutputs()
         {
-            // _isPlaying = false;
-
+            bool dead = _jumper.IsDead();
+            bool finishedPuzzle = _puzzle.PuzzleCompleted();
+            
+            if(finishedPuzzle == true || dead == true)
+            {
+                 _puzzle.GetHint();
+                _terminalService.WriteText(_jumper.GetChute());
+                _terminalService.WriteText("you're done.");
+                _isPlaying = false;
+            }
         }
     }
 }

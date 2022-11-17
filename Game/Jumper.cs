@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 
 namespace unit03_jumper
@@ -10,32 +11,29 @@ namespace unit03_jumper
     /// parachute.
     /// </para>
     /// </summary>
+    
     public class Jumper
     {
-           
         private string Chute =
            @" ____" + "\n"
         + @"/    \" + "\n"
         + @"\____/" + "\n"
         + @" \  /" + "\n"
-        + @"   0 " + "\n"
+        + @"   O " + "\n"
         + @"  -|- " + "\n"
         + @"  / \ " + "\n";
+
+        public int WrongGuessCount = 0;
+
+        private List<string> JumperList = new List<string>();
+        
+
 
         /// <summary>
         /// Constructs a new instance of Jumper.
         /// </summary>
         public Jumper()
-        {
-
-
-        }
-
-        /// <summary>
-        /// Deletes lines off the parachute.
-        /// </summary>
-        public void CutLine()
-        {
+        {     
 
         }
 
@@ -43,10 +41,9 @@ namespace unit03_jumper
         /// Creates the Parachute
         /// </summary>
         /// <returns>The an image of a parachute.</returns>
-        public string getChute()
+        public string GetChute()
         {
             return Chute;
-
         }
 
         /// <summary>
@@ -57,7 +54,57 @@ namespace unit03_jumper
         /// </returns>
         public bool IsDead()
         {
-            return true;
+            if(WrongGuessCount >= 5)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+
+            }
+        }
+
+
+        /// <summary>
+        /// Deletes lines off the parachute.
+        /// </summary>
+        public string CutLine(int WrongGuesses)
+        {
+            
+            if(WrongGuesses == 1){
+               Chute =  @"/    \" + "\n"
+                        + @"\____/" + "\n"
+                        + @" \  /" + "\n"
+                        + @"   O " + "\n"
+                        + @"  -|- " + "\n"
+                        + @"  / \ " + "\n";
+            }
+            else if(WrongGuesses == 2){
+                 Chute =  @"\____/" + "\n"
+                        + @" \  /" + "\n"
+                        + @"   O " + "\n"
+                        + @"  -|- " + "\n"
+                        + @"  / \ " + "\n";
+            }
+            else if(WrongGuesses == 3){
+                 Chute =  @" \  /" + "\n"
+                        + @"   O " + "\n"
+                        + @"  -|- " + "\n"
+                        + @"  / \ " + "\n";
+            }
+            else if(WrongGuesses == 4){
+                 Chute =  @"   O " + "\n"
+                        + @"  -|- " + "\n"
+                        + @"  / \ " + "\n";
+            }
+            else if(WrongGuesses == 5){
+                 Chute =  @"   X " + "\n"
+                        + @"  -|- " + "\n"
+                        + @"  / \ " + "\n";
+            }
+
+            return Chute;
         }
     } 
 
